@@ -1,0 +1,6 @@
+{
+ "TARGET_FOLDER_ID" :"Your Folder Id",
+  "local_path" : "The local path to your files",
+  "_CAUTION": "Do it in double back slashes",
+  "Prefix": "None"
+}
