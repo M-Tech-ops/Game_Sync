@@ -23,7 +23,7 @@ def Download(drive,filename,folder_id,save_path):
                 tqdm.write("The drive file is ahead. Downloading...")
                 file.GetContentFile(save_path)
                 tqdm.write(">>Download Complete!")
-                os.utime(filename,(drive_time,drive_time))
+                os.utime(save_path,(drive_time,drive_time))
 
                 return True
 #This Doesn't check times      
@@ -47,7 +47,7 @@ def Upload(drive,filename,file_id,local_file_path):
             return gfile['id']
         else:
             gfile.SetContentFile(local_file_path)
-            gfile.Upload(param={'supportsAllDrives':True})
+            gfile.Upload(param={'supportsAllDrives':True,'setModifiedDate':True})
     else:
         tqdm.write(f"First time uploading this file : '{filename}'")
         if(os.path.isdir(local_file_path)):
@@ -57,7 +57,7 @@ def Upload(drive,filename,file_id,local_file_path):
                 'mimeType':'application/vnd.google-apps.folder',
                 'modifiedDate':local_date_iso
             })
-            gfile.Upload(param={'supportsAllDrives':True})
+            gfile.Upload(param={'supportsAllDrives':True,'setModifiedDate':True})
         else:
             gfile = drive.CreateFile({
                 'title':filename,
@@ -65,7 +65,7 @@ def Upload(drive,filename,file_id,local_file_path):
                 'modifiedDate': local_date_iso
             })
             gfile.SetContentFile(local_file_path)
-            gfile.Upload(param={'supportsAllDrives':True})
+            gfile.Upload(param={'supportsAllDrives':True,'setModifiedDate':True})
             tqdm.write(f">>Upload Complete!")
     return gfile['id']
 
